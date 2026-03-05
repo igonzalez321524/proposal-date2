@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <title>Date Proposal 💐</title>
+
+
+
+  <style>
+
+    :root{
+
+      /* ---- Sprite settings (edit these to match YOUR sprite sheet) ---- */
+
+      --frameW: 72px;     /* width of one frame */
+
+      --frameH: 72px;     /* height of one frame */
+
+      --frames: 4;        /* number of frames across in the sheet */
+
+      --animSpeed: 0.55s; /* faster = more frantic Kirby */
+
+
+
+      /* ---- UI ---- */
+
+      --arenaH: 360px;
+
+    }
+
+
+
+    * { box-sizing: border-box; }
+
+
+
+    body{
+
+      margin: 0;
+
+      min-height: 100vh;
+
+      display: grid;
+
+      place-items: center;
+
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+      background: radial-gradient(circle at top, #ffe6f1, #fff 60%);
+
+      color: #1b1b1b;
+
+      padding: 18px;
+
+    }
+
+
+
+    .card{
+
+      width: min(820px, 94vw);
+
+      background: rgba(255,255,255,.92);
+
+      border: 1px solid rgba(0,0,0,.06);
+
+      border-radius: 24px;
+
+      box-shadow: 0 18px 45px rgba(0,0,0,.12);
+
+      padding: 26px 22px 20px;
+
+      position: relative;
+
+      overflow: hidden;
+
+    }
+
+
+
+    h1{
+
+      margin: 0 0 8px;
+
+      font-size: clamp(22px, 2.6vw, 34px);
+
+      line-height: 1.15;
+
+      letter-spacing: -0.02em;
+
+    }
+
+
+
+    .sub{
+
+      margin: 0 0 18px;
+
+      opacity: .8;
+
+      font-size: 15px;
+
+    }
+
+
+
+    .arena{
+
+      position: relative;
+
+      height: var(--arenaH);
+
+      border-radius: 18px;
+
+      background: linear-gradient(180deg, #ffe3ef, #ffffff);
+
+      border: 1px solid rgba(0,0,0,.06);
+
+      overflow: hidden;
+
+    }
+
+
+
+    /* YES button */
+
+    .actions{
+
+      display: flex;
+
+      gap: 12px;
+
+      flex-wrap: wrap;
+
+      margin-top: 16px;
+
+      align-items: center;
+
+    }
+
+
+
+    #yesBtn{
+
+      padding: 14px 20px;
+
+      border: 0;
+
+      border-radius: 999px;
+
+      font-weight: 800;
+
+      cursor: pointer;
+
+      box-shadow: 0 10px 22px rgba(0,0,0,.12);
+
+      background: #34c759;
+
+      color: #0b2e14;
+
+    }
+
+
+
+    #yesBtn:active { transform: translateY(1px); }
+
+
+
+    /* Kirby NO button (sprite) */
+
+    #noBtn{
+
+      position: absolute;
+
+      margin-left: 80px;
+
+      width: var(--frameW);
+
+      height: var(--frameH);
+
+      border: 0;
+
+      padding: 0;
+
+      background: transparent;
+
+      cursor: pointer;
+
+      user-select: none;
+
+      -webkit-tap-highlight-color: transparent;
+
+
+
+      /* sprite sheet */
+
+      background-image: url("kirby-sprite.png");
+
+      background-repeat: no-repeat;
+
+      background-size: calc(var(--frameW) * var(--frames)) var(--frameH);
+
+
+
+      /* animation */
+
+      animation: kirbyWalk var(--animSpeed) steps(var(--frames)) infinite;
+
+      filter: drop-shadow(0 10px 12px rgba(0,0,0,.18));
+
+    }
+
+
+
+    @keyframes kirbyWalk{
+
+      from { background-position: 0 0; }
+
+      to   { background-position: calc(var(--frameW) * var(--frames) * -1) 0; }
+
+    }
+
+
+
+    /* Optional: show the word "NO" as a tiny label under Kirby */
+
+    #noLabel{
+
+      position: absolute;
+
+      font-weight: 900;
+
+      font-size: 12px;
+
+      letter-spacing: .08em;
+
+      color: rgba(0,0,0,.55);
+
+      transform: translate(-50%, 0);
+
+      pointer-events: none;
+
+      user-select: none;
+
+    }
+
+
+
+    .msg{
+
+      margin-top: 14px;
+
+      font-weight: 700;
+
+      min-height: 1.2em;
+
+    }
+
+
+
+    .hint{
+
+      margin-top: 6px;
+
+      font-size: 12px;
+
+      opacity: .65;
+
+    }
+
+
+
+    .pill{
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      padding: 10px 12px;
+
+      border-radius: 999px;
+
+      background: rgba(255, 222, 238, .6);
+
+      border: 1px solid rgba(0,0,0,.06);
+
+      font-size: 13px;
+
+      opacity: .9;
+
+    }
+
+  </style>
+
+</head>
+
+
+
+<body>
+
+  <div class="card">
+
+    <h1>Will you go on a hike with me March 8th to the Marincello Trail? </h1>
+
+    <p class="sub">There is absolutely no pressure… except Kirby is guarding the “No” button.</p>
+
+
+
+    
+
+
+
+    <div class="actions">
+
+      
+
+      <button id="yesBtn">Yes 💖</button><div class="arena" id="noBtn" aria-label="No (Kirby)" <button="">
+
+      
+
+
+    </div><div class="arena" id="noBtn" aria-label="No (Kirby)" <button="">
+
+      
+
+
+    </div><div class="pill">“No”</div>
+
+    </div>
+
+
+
+    <div class="msg" id="msg"></div>
+
+    <div class="hint"><b></b><code></code> <code>...fyi you don't have much of a choice &lt;3</code> <code></code>.
+
+    </div>
+
+  </div>
+
+
+
+  <script>
+
+    const arena = document.getElementById("arena");
+
+    const noBtn = document.getElementById("noBtn");
+
+    const noLabel = document.getElementById("noLabel");
+
+    const yesBtn = document.getElementById("yesBtn");
+
+    const msg = document.getElementById("msg");
+
+
+
+    // How close the pointer can get before Kirby dodges
+
+    const DODGE_RADIUS = 90; // px
+
+
+
+    // How far Kirby jumps when dodging (randomized)
+
+    const MIN_JUMP = 110;
+
+    const MAX_JUMP = 190;
+
+
+
+    function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
+
+
+
+    function getCenter(el, parentRect){
+
+      const r = el.getBoundingClientRect();
+
+      return {
+
+        x: (r.left - parentRect.left) + r.width / 2,
+
+        y: (r.top  - parentRect.top ) + r.height / 2
+
+      };
+
+    }
+
+
+
+    function placeNo(x, y){
+
+      const a = arena.getBoundingClientRect();
+
+
+
+      const maxX = a.width  - noBtn.offsetWidth;
+
+      const maxY = a.height - noBtn.offsetHeight;
+
+
+
+      const left = clamp(x, 0, maxX);
+
+      const top  = clamp(y, 0, maxY);
+
+
+
+      noBtn.style.left = left + "px";
+
+      noBtn.style.top  = top  + "px";
+
+
+
+      // label under Kirby
+
+      const cx = left + noBtn.offsetWidth / 2;
+
+      const cy = top + noBtn.offsetHeight + 4;
+
+      noLabel.style.left = cx + "px";
+
+      noLabel.style.top  = cy + "px";
+
+    }
+
+
+
+    function randomStart(){
+
+      const a = arena.getBoundingClientRect();
